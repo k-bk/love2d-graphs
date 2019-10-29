@@ -13,4 +13,4 @@ It will first download `love` executable.
 
 To test the modules run `make test`
 
-[animation]: https://github.com/karolBak/love2d-graphs/show.gif "Showcase animation"
+[animation]: show.gif "Showcase animation"
