@@ -87,7 +87,7 @@ function g.graph(points)
    for _,p in ipairs(points) do
       _p = {}
       _p[1] = pad.left + (p[1] - min[1]) / (max[1] - min[1]) * w_in
-      _p[2] = pad.bottom + (p[2] - min[2]) / (max[2] - min[2]) * h_in
+      _p[2] = h - pad.bottom - (p[2] - min[2]) / (max[2] - min[2]) * h_in
       table.insert(_points, _p[1])
       table.insert(_points, _p[2])
    end
