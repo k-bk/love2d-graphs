@@ -10,7 +10,7 @@ function love.load()
 
    for _ = 0,5000 do
       local deg = love.math.random() * 2 * math.pi
-      table.insert(points, v2(100 * math.cos(deg), 100 * math.sin(deg)))
+      table.insert(points, v2(1e-3 * math.cos(deg), 355 * math.sin(deg)))
    end
 end
 

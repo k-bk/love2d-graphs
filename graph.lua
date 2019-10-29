@@ -27,7 +27,7 @@ function g.labels(min, max, how_many)
    result = {}
    for x = _min, max+unit, step do
       if math.abs(x) < 1e-5 then x = 0 end
-      table.insert(result, x)
+      table.insert(result, ("%g"):format(x))
    end
    return result
 end
