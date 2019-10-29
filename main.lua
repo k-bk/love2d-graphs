@@ -5,8 +5,7 @@ local graph = require "graph"
 function love.load()
    love.graphics.setBackgroundColor({ 1,1,1 })
 
-   points = {}
-   points.color = { 1,0,0 } 
+   points = { color = { 1,0,0 }, title = "Random points on ellipse" }
 
    for _ = 0,5000 do
       local deg = love.math.random() * 2 * math.pi

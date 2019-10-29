@@ -2,9 +2,12 @@ local g = {}
 
 g.GAP = 30  -- how much space do I need between labels
 g.DIVISOR = 10  -- the height of axis divisor
-g.FONT = love.graphics.getFont()
-g.F_HEIGHT = g.FONT:getHeight() / 2
 g.PAD = { left = 60, right = 30, top = 60, bottom = 60 }
+g.FONT = {
+   title = love.graphics.newFont(18),
+   body = love.graphics.newFont(12),
+}
+g.F_HEIGHT = g.FONT.body:getHeight() / 2
 g.COLOR = {  -- for now, color setup is here
    bg = function () love.graphics.setColor(1,1,1) end,
    fg = function () love.graphics.setColor(0,0,0) end
@@ -38,14 +41,14 @@ function g.xaxis(min, max, from, to, y_pos)
    local gap = (to - from) / (#labels - 1)
 
    -- calculate rotation of the text if it doesn't fit
-   local w = g.FONT:getWidth(labels[1].."   ")
+   local w = g.FONT.body:getWidth(labels[1].."   ")
    if w > gap then r = math.acos(gap / w) else r = 0 end
    text_y_pos = math.floor(y_pos + g.F_HEIGHT * (1/2 + 1/math.cos(r)))
 
    for i = 1,#labels do
       x_pos = from + (i-1) * gap
       love.graphics.line(x_pos, y_pos, x_pos, y_pos - g.DIVISOR)
-      love.graphics.printf(labels[i], x_pos, text_y_pos, 200, "center", -r, 1, 1, 100)
+      love.graphics.printf(labels[i], g.FONT.body, x_pos, text_y_pos, 200, "center", -r, 1, 1, 100)
    end
 end
 
@@ -56,7 +59,7 @@ function g.yaxis(min, max, from, to, x_pos)
    for i = 1,#labels do
       y_pos = to - (i-1) * gap
       love.graphics.line(x_pos, y_pos, x_pos + g.DIVISOR, y_pos)
-      love.graphics.printf(labels[i], x_pos - 100 - g.F_HEIGHT, y_pos - g.F_HEIGHT, 100, "right")
+      love.graphics.printf(labels[i], g.FONT.body, x_pos - 100 - g.F_HEIGHT, y_pos - g.F_HEIGHT, 100, "right")
    end
 end
 
@@ -96,6 +99,7 @@ function g.graph(points)
    g.COLOR.bg()
    love.graphics.rectangle("fill",0,0,w,h)
    g.COLOR.fg()
+   love.graphics.printf(points.title or "", g.FONT.title, pad.left, pad.top - 2 * g.FONT.title:getHeight(), w_in, "center")
    love.graphics.rectangle("line",pad.left,pad.top,w_in,h_in)
    g.xaxis(min[1], max[1], pad.left, w - pad.right, h - pad.bottom)
    g.yaxis(min[2], max[2], pad.top, h - pad.bottom, pad.left)
