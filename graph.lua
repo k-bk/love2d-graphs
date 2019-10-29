@@ -1,17 +1,18 @@
 local g = {}
 
-g.GAP = 30 -- how much space do I need between labels
-g.DIVISOR = 10 -- the height of axis divisor
+g.GAP = 30  -- how much space do I need between labels
+g.DIVISOR = 10  -- the height of axis divisor
 g.FONT = love.graphics.getFont()
 g.F_HEIGHT = g.FONT:getHeight() / 2
 g.PAD = { left = 60, right = 30, top = 60, bottom = 60 }
-g.COLOR = {
+g.COLOR = {  -- for now, color setup is here
    bg = function () love.graphics.setColor(1,1,1) end,
    fg = function () love.graphics.setColor(0,0,0) end
 }
 
-
 function g.labels(min, max, how_many)
+   -- find nice, round labels for axis, eg. for <-53.23, 114.10>
+   -- it should be: [ -60 -20 0 20 40 60 80 100 120 ]
    local len = max - min
    local step = 10 ^ math.ceil(math.log10(len))
    while (len / step) < how_many do
@@ -19,10 +20,12 @@ function g.labels(min, max, how_many)
       if 2 * (len / step) < how_many then step = step / 2 else break end
    end
    local unit = 10 ^ math.floor(math.log10(step))
+
+   -- find nearest, smaller round number to start counting from
    local _min = math.floor(min / unit) * unit
 
    result = {}
-   for x = _min,max+unit,step do
+   for x = _min, max+unit, step do
       if math.abs(x) < 1e-5 then x = 0 end
       table.insert(result, x)
    end
@@ -63,6 +66,7 @@ function g.graph(points)
    local w_in = w - pad.left - pad.right
    local h_in = h - pad.top - pad.bottom 
 
+   -- find rectangle that covers all points
    local max,min = {-math.huge,-math.huge},{math.huge,math.huge}
    for _,p in ipairs(points) do
       max[1] = math.max(p[1],max[1])
@@ -78,6 +82,7 @@ function g.graph(points)
    min[2] = min[2] - yrange * 0.1
    max[2] = max[2] + yrange * 0.1
 
+   -- scale points to screen size
    local _points = {}
    for _,p in ipairs(points) do
       _p = {}
@@ -87,6 +92,7 @@ function g.graph(points)
       table.insert(_points, _p[2])
    end
 
+   -- draw the graph
    g.COLOR.bg()
    love.graphics.rectangle("fill",0,0,w,h)
    g.COLOR.fg()

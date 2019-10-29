@@ -1,7 +1,10 @@
 local v2 = require "v2"
 local graph = require "graph"
 
+
 function love.load()
+   love.graphics.setBackgroundColor({ 1,1,1 })
+
    points = {}
    points.color = { 1,0,0 } 
 
