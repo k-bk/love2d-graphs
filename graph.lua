@@ -117,7 +117,11 @@ function g.graph(args)
       end
 
       love.graphics.setColor(points.color or g.c.black)
-      love.graphics.points(_points)
+      if points.style == "line" then
+         love.graphics.line(_points)
+      else
+         love.graphics.points(_points)
+      end
    end
 end
 
