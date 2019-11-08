@@ -117,11 +117,15 @@ function g.graph(args)
       end
 
       love.graphics.setColor(points.color or g.c.black)
+      local line_width = love.graphics.getLineWidth()
+      love.graphics.setLineWidth(2)
+      love.graphics.setPointSize(4)
       if points.style == "line" then
          love.graphics.line(_points)
       else
          love.graphics.points(_points)
       end
+      love.graphics.setLineWidth(line_width)
    end
 end
 

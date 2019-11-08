@@ -9,6 +9,7 @@ do
    function v.__mul(a,v) return v2(a * v[1], a * v[2]) end
    function v.__eq(v,u) return v[1]==u[1] and v[2]==u[2] end
    function v.__tostring(v) return ("<%g, %g>"):format(v[1], v[2]) end
+   function v.__concat(s,v) return tostring(s)..tostring(v) end
    function v.len(v) return math.sqrt(v[1]*v[1] + v[2]*v[2]) end
    function v.dot(v,u) return v[1]*u[1] + v[2]*u[2] end
 
