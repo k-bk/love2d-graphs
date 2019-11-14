@@ -71,8 +71,10 @@ function g.yaxis(min, max, from, to, x_pos)
    end
 end
 
-function g.graph(args)
-   local w,h = love.graphics.getDimensions() 
+function g.graph(args, conf)
+   local conf = conf or {}
+   local x,y = conf.x or 0, conf.y or 0
+   local w,h = conf.width or love.graphics.getWidth() - x, conf.height or love.graphics.getHeight() - y
    local pad = g.PAD
    local w_in = w - pad.left - pad.right
    local h_in = h - pad.top - pad.bottom 
