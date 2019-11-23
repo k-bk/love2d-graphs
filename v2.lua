@@ -2,7 +2,16 @@ local v2 = {}
 
 do 
    local v = {}
-   v.__index = v
+   v.__index = function (vec, key)
+      if key == "x" then return vec[1] end
+      if key == "y" then return vec[2] end
+      return v[key]
+   end
+   v.__newindex = function (vec, key, value)
+      if key == "x" then vec[1] = value end
+      if key == "y" then vec[2] = value end
+   end
+
    
    function v.__add(v,u) return v2(v[1]+u[1], v[2]+u[2]) end
    function v.__sub(v,u) return v2(v[1]-u[1], v[2]-u[2]) end
