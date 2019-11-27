@@ -1,4 +1,4 @@
-# love2d-graphs
+# love2d-graphs [![love2d version](https://img.shields.io/badge/L%C3%96VE-11.3-27a9e0?labelColor=e74999)](https://love2d.org)
 I am developing it to display algorithms in computational geometry.
 
 ## Running
